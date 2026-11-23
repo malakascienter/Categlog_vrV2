@@ -35,7 +35,7 @@ public sealed partial class MainForm
         AddRow(setup, 1, "Your name", txtGitName, null);
         AddRow(setup, 2, "Your email", txtGitEmail, btnIdent);
         var gSetup = new GroupBox { Text = "Setup (once)", Dock = DockStyle.Top, AutoSize = true, Padding = new Padding(6) };
-        var setupFlow = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true };
+        var setupFlow = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true, WrapContents = false };
         setupFlow.Controls.Add(GitAct("Init repo", "git init + first commit", GitInitAsync));
         var setupStack = new TableLayoutPanel { Dock = DockStyle.Top, AutoSize = true, ColumnCount = 1 };
         setupStack.Controls.Add(setup); setupStack.Controls.Add(setupFlow);
@@ -45,7 +45,7 @@ public sealed partial class MainForm
         var gBranch = new GroupBox { Text = "Branch", Dock = DockStyle.Top, AutoSize = true, Padding = new Padding(6) };
         var brGrid = Grid(3, 1);
         AddRow(brGrid, 0, "Branch name", cmbBranch, null);
-        var brFlow = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true };
+        var brFlow = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true, WrapContents = false };
         brFlow.Controls.Add(GitAct("Switch", "git switch <branch>", () => GitSwitchAsync(false)));
         brFlow.Controls.Add(GitAct("Create new", "git switch -c <branch> (from the current one)", () => GitSwitchAsync(true)));
         brFlow.Controls.Add(GitAct("Merge into current", "git merge --no-ff <branch>", GitMergeAsync));
@@ -60,7 +60,7 @@ public sealed partial class MainForm
         var gChanges = new GroupBox { Text = "Changes (tick the files to commit; double-click a file to see its diff)", Dock = DockStyle.Top, AutoSize = true, Padding = new Padding(6) };
         lstFiles.Columns.Add("Status", 130); lstFiles.Columns.Add("File", 700);
         lstFiles.DoubleClick += async (_, _) => await Guard(GitDiffSelectedAsync);
-        var selFlow = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true };
+        var selFlow = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true, WrapContents = false };
         var all = new Button { Text = "Tick all", AutoSize = true }; all.Click += (_, _) => { foreach (ListViewItem i in lstFiles.Items) i.Checked = true; };
         var none = new Button { Text = "Untick all", AutoSize = true }; none.Click += (_, _) => { foreach (ListViewItem i in lstFiles.Items) i.Checked = false; };
         var open = new Button { Text = "Open file", AutoSize = true }; open.Click += (_, _) => OpenSelectedFile();
@@ -78,22 +78,24 @@ public sealed partial class MainForm
         var cGrid = Grid(3, 2);
         AddRow(cGrid, 0, "Commit message", txtMessage, null);
         AddRow(cGrid, 1, "Tag name", txtBranch, null);
-        var cFlow = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true };
+        var cFlow = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true, WrapContents = false };
         cFlow.Controls.Add(GitAct("Commit ticked", "Commit only the ticked files", GitCommitAsync));
         cFlow.Controls.Add(GitAct("Fetch", "git fetch --prune", () => Git("fetch", "--prune")));
         cFlow.Controls.Add(GitAct("Pull", "git pull --rebase", () => Git("pull", "--rebase")));
         cFlow.Controls.Add(GitAct("Push", "git push -u origin HEAD", () => Git("push", "-u", "origin", "HEAD")));
         cFlow.Controls.Add(GitAct("Stash", "Put local changes aside", () => Git("stash", "push", "-u", "-m", "DbProjectTool")));
         cFlow.Controls.Add(GitAct("Stash pop", "Bring stashed changes back", () => Git("stash", "pop")));
-        cFlow.Controls.Add(GitAct("Undo last commit", "git reset --soft HEAD~1 (keeps your files)", GitUndoAsync));
-        cFlow.Controls.Add(GitAct("Log", "Last 30 commits", () => Git("log", "--oneline", "--graph", "--decorate", "-n", "30")));
-        cFlow.Controls.Add(GitAct("Create tag + push", "git tag <name>, then push it", GitTagAsync));
-        cFlow.Controls.Add(GitAct("List tags", "git tag", () => Git("tag", "--sort=-v:refname")));
+        // Second row: fixed (no wrapping) so no button can ever be pushed out of sight.
+        var cFlow2 = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true, WrapContents = false };
+        cFlow2.Controls.Add(GitAct("Undo last commit", "git reset --soft HEAD~1 (keeps your files)", GitUndoAsync));
+        cFlow2.Controls.Add(GitAct("Log", "Last 30 commits", () => Git("log", "--oneline", "--graph", "--decorate", "-n", "30")));
+        cFlow2.Controls.Add(GitAct("Create tag + push", "git tag <name>, then push it", GitTagAsync));
+        cFlow2.Controls.Add(GitAct("List tags", "git tag", () => Git("tag", "--sort=-v:refname")));
         var pr = new Button { Text = "Open Pull Request", AutoSize = true };
         pr.Click += async (_, _) => await Guard(GitOpenPullRequestAsync);
-        cFlow.Controls.Add(pr);
+        cFlow2.Controls.Add(pr);
         var cStack = new TableLayoutPanel { Dock = DockStyle.Top, AutoSize = true, ColumnCount = 1 };
-        cStack.Controls.Add(chkBuildFirst); cStack.Controls.Add(cGrid); cStack.Controls.Add(cFlow);
+        cStack.Controls.Add(chkBuildFirst); cStack.Controls.Add(cGrid); cStack.Controls.Add(cFlow); cStack.Controls.Add(cFlow2);
         gCommit.Controls.Add(cStack);
 
         stack.Controls.Add(gSetup);
