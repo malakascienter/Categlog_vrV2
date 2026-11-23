@@ -1,0 +1,4 @@
+CREATE PROCEDURE dbo.SP_GetGroupData AS RETURN 0
+
+GO
+

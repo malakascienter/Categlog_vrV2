@@ -1,0 +1,15 @@
+
+CREATE PROCEDURE SP_PB_GET_UNITS
+	@PropertyId INT
+AS
+BEGIN
+
+	SET NOCOUNT ON;
+
+	SELECT * FROM Units
+
+    
+END
+
+GO
+

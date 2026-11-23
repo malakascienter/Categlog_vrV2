@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Each developer's own database on LocalDB (installed with Visual Studio).
+  Same path on every Windows PC, so this file is shared in git.
+  Using SQL Server Developer Edition instead? Change Data Source to "localhost" or ".\SQLEXPRESS".
+-->
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TargetDatabaseName>AppDb</TargetDatabaseName>
+    <TargetConnectionString>Data Source=(localdb)\MSSQLLocalDB;Integrated Security=True;Encrypt=False;Trust Server Certificate=True</TargetConnectionString>
+    <DeployScriptFileName>AppDb.Local.sql</DeployScriptFileName>
+    <ProfileVersionNumber>1</ProfileVersionNumber>
+
+    <!-- Local DB is disposable: allow drops so it always matches the project exactly. -->
+    <BlockOnPossibleDataLoss>False</BlockOnPossibleDataLoss>
+    <DropObjectsNotInSource>True</DropObjectsNotInSource>
+    <DoNotDropObjectTypes>Users;Logins;RoleMembership;Permissions</DoNotDropObjectTypes>
+    <CreateNewDatabase>False</CreateNewDatabase>
+    <IncludeTransactionalScripts>True</IncludeTransactionalScripts>
+  </PropertyGroup>
+  <ItemGroup>
+    <SqlCmdVariable Include="Environment">
+      <Value>Local</Value>
+    </SqlCmdVariable>
+    <SqlCmdVariable Include="DacVersion">
+      <Value>1.0.0-local</Value>
+    </SqlCmdVariable>
+  </ItemGroup>
+</Project>

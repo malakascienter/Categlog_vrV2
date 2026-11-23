@@ -1,0 +1,4 @@
+CREATE PROCEDURE dbo.SP_GetAutoGenaratedNo AS RETURN 0
+
+GO
+

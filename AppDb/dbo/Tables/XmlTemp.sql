@@ -1,0 +1,9 @@
+CREATE TABLE [dbo].[XmlTemp] (
+    [sXmlH] VARCHAR (MAX) CONSTRAINT [DF_Table_1_sXml] DEFAULT ('') NOT NULL,
+    [sXmlD] VARCHAR (MAX) CONSTRAINT [DF_Table_1_sXmlH1] DEFAULT ('') NOT NULL,
+    [sXmlP] VARCHAR (MAX) CONSTRAINT [DF_Table_1_sXmlH1_1] DEFAULT ('') NOT NULL
+);
+
+
+GO
+

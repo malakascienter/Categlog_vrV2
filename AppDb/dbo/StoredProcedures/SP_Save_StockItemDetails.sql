@@ -1,0 +1,4 @@
+CREATE PROCEDURE dbo.SP_Save_StockItemDetails AS RETURN 0
+
+GO
+

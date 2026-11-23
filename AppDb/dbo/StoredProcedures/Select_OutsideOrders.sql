@@ -1,0 +1,92 @@
+
+
+CREATE PROCEDURE [dbo].[Select_OutsideOrders]
+	@OrderId VARCHAR(200)
+	
+	
+AS
+BEGIN	
+SET NOCOUNT ON
+
+	
+	SELECT [PropertyId]
+      ,[OutletID]
+      ,[OutsideOrderNo]
+      ,[OrderType]
+      ,[OrderDateTime]
+      ,[MenuItemID]
+      ,[Name]
+      ,[Quantity]
+      ,[Rate]
+      ,[RefItemID]
+      ,[ActionID]
+      ,[IsModifier]
+      ,[IsInstruction]
+      ,[Remarks]
+      ,[ItemSequence]
+      ,[SortSeq]
+      ,[ContactNo]
+      ,[HotelReservationNo]
+      ,[RoomID]
+      ,[RoomName]
+      ,[GuestProfileID]
+      ,[GuestProfileName]
+      ,[MealPlanID]
+      ,[MealPlanName]
+      ,[OutsideOrderId]
+      ,[IsCancel]
+      ,[AggregatorID]
+      ,[SysDate]
+      ,[CancelTime]
+      ,[IsAccept]
+      ,[AcceptTime]
+      ,[IsDeny]
+      ,[DenyTime]
+      ,[DenyReason]
+      ,[ChannelCode]
+      ,[IsOutletSyncFail]
+      ,[IsOutletSyncSuccess]
+      ,[RefOrderNo] FROM POS_OutsideOrders WHERE OutsideOrderId = @OrderId
+	UNION ALL
+	SELECT [PropertyId]
+      ,[OutletID]
+      ,[OutsideOrderNo]
+      ,[OrderType]
+      ,[OrderDateTime]
+      ,[MenuItemID]
+      ,[Name]
+      ,[Quantity]
+      ,[Rate]
+      ,[RefItemID]
+      ,[ActionID]
+      ,[IsModifier]
+      ,[IsInstruction]
+      ,[Remarks]
+      ,[ItemSequence]
+      ,[SortSeq]
+      ,[ContactNo]
+      ,[HotelReservationNo]
+      ,[RoomID]
+      ,[RoomName]
+      ,[GuestProfileID]
+      ,[GuestProfileName]
+      ,[MealPlanID]
+      ,[MealPlanName]
+      ,[OutsideOrderId]
+      ,[IsCancel]
+      ,[AggregatorID]
+      ,[SysDate]
+      ,[CancelTime]
+      ,[IsAccept]
+      ,[AcceptTime]
+      ,[IsDeny]
+      ,[DenyTime]
+      ,[DenyReason]
+      ,[ChannelCode]
+      ,1 AS [IsOutletSyncFail]
+      ,[IsOutletSyncSuccess]
+      ,[RefOrderNo] FROM POS_OutsideOrders_InvalidOrder WHERE OutsideOrderId = @OrderId
+END
+
+GO
+

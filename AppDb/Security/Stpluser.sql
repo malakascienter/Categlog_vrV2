@@ -1,0 +1,5 @@
+CREATE USER [Stpluser] WITHOUT LOGIN;
+
+
+GO
+

@@ -1,0 +1,43 @@
+CREATE TABLE [dbo].[BOQRateanalysisAllocationDetails] (
+    [ID]                              INT             IDENTITY (1, 1) NOT NULL,
+    [BOQID]                           INT             NOT NULL,
+    [RateID]                          INT             NOT NULL,
+    [SequNo]                          INT             NOT NULL,
+    [Location]                        INT             NOT NULL,
+    [ItemType]                        NVARCHAR (MAX)  NULL,
+    [Unit]                            INT             NOT NULL,
+    [UnitPrice]                       FLOAT (53)      NOT NULL,
+    [Quantity]                        FLOAT (53)      NOT NULL,
+    [ItemID]                          INT             CONSTRAINT [DF__BOQRatean__ItemI__035179CE] DEFAULT ((0)) NOT NULL,
+    [isAlternativeItemApplicable]     BIT             CONSTRAINT [DF__BOQRatean__isAlt__414EAC47] DEFAULT ((0)) NOT NULL,
+    [isProjectspecificSubstituteItem] BIT             CONSTRAINT [DF__BOQRatean__isPro__4336F4B9] DEFAULT ((0)) NOT NULL,
+    [IsPercentageOrValue]             BIT             CONSTRAINT [DF__BOQRatean__IsPer__15E52B55] DEFAULT ((0)) NOT NULL,
+    [DiscountPercentage]              DECIMAL (18, 2) CONSTRAINT [DF__BOQRatean__Disco__16D94F8E] DEFAULT ((0)) NOT NULL,
+    [DiscountValue]                   DECIMAL (18, 2) CONSTRAINT [DF__BOQRatean__Disco__17CD73C7] DEFAULT ((0)) NOT NULL,
+    [ProfitMarginVal]                 DECIMAL (18, 2) CONSTRAINT [DF__BOQRatean__Profi__4376EBDB] DEFAULT ((0)) NOT NULL,
+    [OverheadCostVal]                 DECIMAL (18, 2) CONSTRAINT [DF__BOQRatean__Overh__446B1014] DEFAULT ((0)) NOT NULL,
+    [IPAddress]                       NVARCHAR (MAX)  NULL,
+    [CreatedUserID]                   INT             CONSTRAINT [DF__BOQRatean__Creat__455F344D] DEFAULT ((0)) NOT NULL,
+    [LastModUserID]                   INT             CONSTRAINT [DF__BOQRatean__LastM__46535886] DEFAULT ((0)) NOT NULL,
+    [CreatedDate]                     DATETIME        CONSTRAINT [DF__BOQRatean__Creat__47477CBF] DEFAULT ('1900-01-01T00:00:00.000') NOT NULL,
+    [LastModDate]                     DATETIME        CONSTRAINT [DF__BOQRatean__LastM__483BA0F8] DEFAULT ('1900-01-01T00:00:00.000') NOT NULL,
+    [TotalTax]                        DECIMAL (18, 2) CONSTRAINT [DF__BOQRatean__Total__2B6A5820] DEFAULT ((0)) NOT NULL,
+    [UnitTax]                         DECIMAL (18, 2) CONSTRAINT [DF_BOQRateanalysisAllocationDetails_UnitTax] DEFAULT ((0)) NOT NULL,
+    [OverheadCostRate]                DECIMAL (18, 2) CONSTRAINT [DF__BOQRatean__Overh__4FA7B896] DEFAULT ((0)) NOT NULL,
+    [Currency]                        INT             CONSTRAINT [DF__BOQRatean__Curre__3C5FD9F8] DEFAULT ((0)) NOT NULL,
+    [ExchangeRate]                    DECIMAL (18, 2) CONSTRAINT [DF__BOQRatean__Excha__3D53FE31] DEFAULT ((0)) NOT NULL,
+    [PointApplied]                    INT             CONSTRAINT [DF__BOQRatean__Point__3E48226A] DEFAULT ((0)) NOT NULL,
+    [PackID]                          INT             CONSTRAINT [DF__BOQRatean__PackI__6FDF7DFE] DEFAULT ((0)) NOT NULL,
+    [PackQty]                         DECIMAL (18, 2) CONSTRAINT [DF__BOQRatean__PackQ__70D3A237] DEFAULT ((0)) NOT NULL,
+    [PackRate]                        DECIMAL (18, 2) CONSTRAINT [DF__BOQRatean__PackR__71C7C670] DEFAULT ((0)) NOT NULL,
+    [PackBreakdownQty]                DECIMAL (18, 2) CONSTRAINT [DF__BOQRatean__PackB__72BBEAA9] DEFAULT ((0)) NOT NULL,
+    [ProfitMarginPercentage]          DECIMAL (18, 2) NULL,
+    [IsProfitMarg]                    BIT             NULL,
+    [ISOHCPercentage]                 BIT             NULL,
+    [OHCPercentage]                   DECIMAL (18, 2) NULL,
+    CONSTRAINT [PK_dbo.BOQRateanalysisAllocationDetails] PRIMARY KEY CLUSTERED ([ID] ASC)
+);
+
+
+GO
+

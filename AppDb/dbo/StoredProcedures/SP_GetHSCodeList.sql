@@ -1,0 +1,15 @@
+
+CREATE PROCEDURE [dbo].[SP_GetHSCodeList]
+	@propertyID INT
+AS
+BEGIN
+
+	SET NOCOUNT ON;
+
+	SELECT * FROM HSItem
+
+    
+END
+
+GO
+

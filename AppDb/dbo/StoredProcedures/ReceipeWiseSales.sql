@@ -1,0 +1,4 @@
+CREATE PROCEDURE dbo.ReceipeWiseSales AS RETURN 0
+
+GO
+

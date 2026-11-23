@@ -1,0 +1,4 @@
+CREATE PROCEDURE dbo.SPP_Save_ProjectDetails AS RETURN 0
+
+GO
+

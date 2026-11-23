@@ -1,0 +1,40 @@
+CREATE TABLE [dbo].[DeliveryNoteHeaders] (
+    [Id]                 INT            IDENTITY (1, 1) NOT NULL,
+    [DocumentNo]         NVARCHAR (20)  NULL,
+    [CustomerId]         INT            NOT NULL,
+    [InvoiceId]          INT            NOT NULL,
+    [OrderId]            INT            NOT NULL,
+    [TransactionType]    NVARCHAR (2)   NULL,
+    [TransactionDate]    DATETIME       NOT NULL,
+    [DispatchDate]       DATETIME       NOT NULL,
+    [DeliveredDate]      DATETIME       NOT NULL,
+    [PropertyID]         INT            NOT NULL,
+    [LocationID]         INT            NOT NULL,
+    [ReferenceNo]        NVARCHAR (20)  NULL,
+    [ContactPerson]      NVARCHAR (MAX) NULL,
+    [ContactPersonNo]    NVARCHAR (MAX) NULL,
+    [Attention]          NVARCHAR (MAX) NULL,
+    [Remarks]            NVARCHAR (20)  NULL,
+    [ReferenceID]        INT            NOT NULL,
+    [DepartmentID]       INT            NOT NULL,
+    [TimeStamp]          NVARCHAR (256) NULL,
+    [TransactionID]      INT            NOT NULL,
+    [Mode]               NVARCHAR (1)   NULL,
+    [IsApproved]         BIT            NOT NULL,
+    [IsPrint]            BIT            NOT NULL,
+    [ReceiverName]       NVARCHAR (MAX) NULL,
+    [ReceiverNIC]        NVARCHAR (MAX) NULL,
+    [ReceivedTrnDate]    DATETIME       NOT NULL,
+    [ReceiverDesgnation] NVARCHAR (MAX) NULL,
+    [ReceiverContactNo]  NVARCHAR (20)  NULL,
+    [IPAddress]          NVARCHAR (MAX) NULL,
+    [CreatedUserID]      INT            NOT NULL,
+    [LastModUserID]      INT            NOT NULL,
+    [CreatedDate]        DATETIME       NOT NULL,
+    [LastModDate]        DATETIME       NOT NULL,
+    CONSTRAINT [PK_dbo.DeliveryNoteHeaders] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+GO
+

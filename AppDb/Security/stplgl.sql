@@ -1,0 +1,5 @@
+CREATE USER [stplgl] WITHOUT LOGIN;
+
+
+GO
+

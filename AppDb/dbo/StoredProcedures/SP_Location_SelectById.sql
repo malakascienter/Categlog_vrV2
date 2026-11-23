@@ -1,0 +1,13 @@
+
+CREATE PROCEDURE SP_Location_SelectById
+	@Id INT
+AS
+BEGIN
+
+	SET NOCOUNT ON;
+
+    SELECT  *FROM Locations WHERE Id = @Id
+END
+
+GO
+

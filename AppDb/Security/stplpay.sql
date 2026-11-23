@@ -1,0 +1,5 @@
+CREATE USER [stplpay] WITHOUT LOGIN;
+
+
+GO
+

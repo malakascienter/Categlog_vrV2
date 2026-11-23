@@ -1,0 +1,72 @@
+# Azure DevOps pipeline: build on every PR, deploy Test on main, Prod with approval.
+# Create pipeline variables (secret): TestDbConnection, ProdDbConnection.
+# Create environments "AppDb-Test" and "AppDb-Prod" (add an approval check on Prod).
+
+trigger:
+  branches: { include: [main] }
+  tags: { include: ['v*'] }
+
+pr:
+  branches: { include: [main] }
+
+pool:
+  vmImage: windows-latest
+
+stages:
+  - stage: Build
+    jobs:
+      - job: Build
+        steps:
+          - task: UseDotNet@2
+            inputs: { packageType: sdk, version: 8.x }
+          - script: dotnet build AppDb/AppDb.sqlproj -c Release
+            displayName: Build dacpac (fails on broken references)
+          - publish: AppDb/bin/Release/AppDb.dacpac
+            artifact: dacpac
+
+  - stage: DeployTest
+    dependsOn: Build
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    jobs:
+      - deployment: Test
+        environment: AppDb-Test
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+                - script: dotnet tool install -g microsoft.sqlpackage
+                - script: >
+                    sqlpackage /Action:Publish
+                    /SourceFile:"$(Pipeline.Workspace)/dacpac/AppDb.dacpac"
+                    /Profile:"AppDb/PublishProfiles/Test.publish.xml"
+                    /TargetConnectionString:"$(TestDbConnection)"
+                  displayName: Publish to Test
+
+  - stage: DeployProd
+    dependsOn: DeployTest
+    condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/v'))
+    jobs:
+      - deployment: Prod
+        environment: AppDb-Prod          # approval required here
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+                - script: dotnet tool install -g microsoft.sqlpackage
+                - script: >
+                    sqlpackage /Action:Script
+                    /SourceFile:"$(Pipeline.Workspace)/dacpac/AppDb.dacpac"
+                    /Profile:"AppDb/PublishProfiles/Prod.publish.xml"
+                    /TargetConnectionString:"$(ProdDbConnection)"
+                    /OutputPath:"$(Build.ArtifactStagingDirectory)/AppDb.Prod.sql"
+                  displayName: Generate Prod change script (saved as artifact)
+                - publish: $(Build.ArtifactStagingDirectory)/AppDb.Prod.sql
+                  artifact: prod-script
+                - script: >
+                    sqlpackage /Action:Publish
+                    /SourceFile:"$(Pipeline.Workspace)/dacpac/AppDb.dacpac"
+                    /Profile:"AppDb/PublishProfiles/Prod.publish.xml"
+                    /TargetConnectionString:"$(ProdDbConnection)"
+                  displayName: Publish to Prod

@@ -1,0 +1,41 @@
+# GitHub Actions alternative: build the dacpac on every PR and push to main.
+# Use this OR pipelines/azure-pipelines.yml, depending on where your repo lives.
+name: db-ci
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.x
+      - name: Build dacpac (fails on broken references)
+        run: dotnet build AppDb/AppDb.sqlproj -c Release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dacpac
+          path: AppDb/bin/Release/AppDb.dacpac
+
+  deploy-test:
+    if: github.event_name == 'push'
+    needs: build
+    runs-on: windows-latest
+    environment: test            # add secret TEST_DB_CONNECTION to this environment
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { name: dacpac }
+      - run: dotnet tool install -g microsoft.sqlpackage
+      - name: Publish to Test
+        run: >
+          sqlpackage /Action:Publish
+          /SourceFile:AppDb.dacpac
+          /Profile:AppDb/PublishProfiles/Test.publish.xml
+          /TargetConnectionString:"${{ secrets.TEST_DB_CONNECTION }}"

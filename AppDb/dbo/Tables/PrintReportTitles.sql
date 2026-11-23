@@ -1,0 +1,43 @@
+CREATE TABLE [dbo].[PrintReportTitles] (
+    [Id]                  INT            IDENTITY (1, 1) NOT NULL,
+    [TransactionType]     INT            NOT NULL,
+    [blcok5_B5_1_title]   NVARCHAR (MAX) NULL,
+    [blcok5_B5_2_title]   NVARCHAR (MAX) NULL,
+    [blcok5_B5_3_title]   NVARCHAR (MAX) NULL,
+    [blcok6_B6_1_name]    NVARCHAR (MAX) NULL,
+    [blcok7_B7_1_title]   NVARCHAR (MAX) NULL,
+    [blcok7_B7_2_title]   NVARCHAR (MAX) NULL,
+    [blcok7_B7_3_title]   NVARCHAR (MAX) NULL,
+    [blcok7_B7_4_title]   NVARCHAR (MAX) NULL,
+    [blcok7_B7_5_title]   NVARCHAR (MAX) NULL,
+    [blcok7_B7_6_title]   NVARCHAR (MAX) NULL,
+    [blcok10_B10_1_name]  NVARCHAR (MAX) NULL,
+    [blcok10_B10_2_name]  NVARCHAR (MAX) NULL,
+    [blcok10_B10_3_name]  NVARCHAR (MAX) NULL,
+    [blcok10_B10_4_name]  NVARCHAR (MAX) NULL,
+    [blcok10_B10_5_name]  NVARCHAR (MAX) NULL,
+    [blcok10_B10_6_name]  NVARCHAR (MAX) NULL,
+    [blcok10_B10_7_name]  NVARCHAR (MAX) NULL,
+    [blcok10_B10_8_name]  NVARCHAR (MAX) NULL,
+    [blcok10_B10_9_name]  NVARCHAR (MAX) NULL,
+    [blcok8_B8_1_name]    NVARCHAR (MAX) NULL,
+    [blcok9_B9_1_title]   NVARCHAR (MAX) NULL,
+    [blcok9_B9_2_title]   NVARCHAR (MAX) NULL,
+    [blcok9_B9_3_title]   NVARCHAR (MAX) NULL,
+    [blcok9_B9_4_title]   NVARCHAR (MAX) NULL,
+    [blcok8_B8_2_name]    NVARCHAR (MAX) NULL,
+    [blcok8_B8_3_name]    NVARCHAR (MAX) NULL,
+    [blcok8_B8_4_name]    NVARCHAR (MAX) NULL,
+    [blcok10_B10_10_name] VARCHAR (MAX)  NULL,
+    [blcok10_B10_11_name] VARCHAR (MAX)  NULL,
+    [blcok10_B10_12_name] VARCHAR (MAX)  NULL,
+    [blcok7_B7_7_title]   VARCHAR (MAX)  NULL,
+    [blcok7_B7_8_title]   VARCHAR (MAX)  NULL,
+    [blcok7_B7_9_title]   VARCHAR (MAX)  NULL,
+    [blcok10_B10_13_name] VARCHAR (250)  NULL,
+    CONSTRAINT [PK_dbo.PrintReportTitles] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+GO
+

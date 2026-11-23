@@ -1,0 +1,5 @@
+CREATE USER [rptuser] WITHOUT LOGIN;
+
+
+GO
+

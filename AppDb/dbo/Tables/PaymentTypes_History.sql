@@ -1,0 +1,42 @@
+CREATE TABLE [dbo].[PaymentTypes_History] (
+    [Id]                    INT           NOT NULL,
+    [SysDate]               DATETIME      CONSTRAINT [DF_PaymentTypes_History_SysDate] DEFAULT (getdate()) NOT NULL,
+    [PayCode]               CHAR (2)      NOT NULL,
+    [Description]           VARCHAR (20)  NOT NULL,
+    [Cash]                  BIT           NOT NULL,
+    [CreditCard]            BIT           NOT NULL,
+    [NoValue]               BIT           NOT NULL,
+    [Other]                 BIT           NOT NULL,
+    [Remarks]               BIT           NOT NULL,
+    [DrawerOpen]            BIT           NOT NULL,
+    [Frimi]                 BIT           CONSTRAINT [DF_PaymentTypes_History_Frimi] DEFAULT ((0)) NOT NULL,
+    [Credit]                BIT           NOT NULL,
+    [AccCode]               VARCHAR (250) NULL,
+    [CusCode]               CHAR (15)     NULL,
+    [cheque]                BIT           NOT NULL,
+    [Active]                BIT           NOT NULL,
+    [Departmentcode]        CHAR (3)      NOT NULL,
+    [VOUCHER]               BIT           NOT NULL,
+    [IsStaffMeal]           BIT           NOT NULL,
+    [IsFoodTesting]         BIT           NOT NULL,
+    [IsEWallet]             BIT           NULL,
+    [IsRoomPosting]         BIT           NULL,
+    [IsECR]                 BIT           NULL,
+    [IsAdvance]             BIT           NULL,
+    [PropertyId]            INT           NULL,
+    [IsUpload]              BIT           NULL,
+    [CreatedUserId]         NCHAR (10)    NULL,
+    [CreatedDateTime]       DATETIME      NULL,
+    [UpdatedUserId]         INT           NULL,
+    [UpdatedDateTime]       DATETIME      NULL,
+    [IsNeedPermission]      BIT           DEFAULT ((0)) NOT NULL,
+    [SortOrder]             INT           DEFAULT ((0)) NOT NULL,
+    [IsReturnCoupon]        BIT           CONSTRAINT [DF_PaymentTypes_History_IsReturnCoupon] DEFAULT ((0)) NULL,
+    [IsShowOnMultiCurrency] BIT           DEFAULT ((0)) NOT NULL,
+    [IsCreditCard]          BIT           CONSTRAINT [DF_PaymentTypes_History_IsCreditCard] DEFAULT ((0)) NULL,
+    [IsCredit]              BIT           CONSTRAINT [DF_PaymentTypes_History_IsCredit] DEFAULT ((0)) NULL
+);
+
+
+GO
+

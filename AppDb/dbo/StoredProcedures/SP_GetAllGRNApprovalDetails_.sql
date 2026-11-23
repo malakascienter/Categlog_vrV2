@@ -1,0 +1,4 @@
+CREATE PROCEDURE dbo.SP_GetAllGRNApprovalDetails_ AS RETURN 0
+
+GO
+

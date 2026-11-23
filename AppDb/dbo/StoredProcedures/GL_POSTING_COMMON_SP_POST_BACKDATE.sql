@@ -1,0 +1,40 @@
+
+
+
+CREATE PROCEDURE [dbo].[GL_POSTING_COMMON_SP_POST_BACKDATE] (@CurrDate AS DATE, @DayEndUserID AS UniqueIdentifier, @PropertyID AS INT, @BlockCode AS VARCHAR(4) = '', @DocNo AS VARCHAR(20) ='' )
+
+AS
+BEGIN
+
+	SET DATEFORMAT DMY
+
+	IF @BlockCode = '' AND @DocNo = '' BEGIN
+
+		DECLARE @ReCurrDate AS DATE
+
+		BEGIN TRY DROP TABLE #REPostToGL END TRY
+		BEGIN CATCH END CATCH
+
+		SELECT Distinct TxnDate 
+		INTO #REPostToGL
+		FROM eFinancials_Accounting.dbo.GL_POSTING WHERE TxnNo = '' AND TxnDate < @CurrDate
+
+		WHILE EXISTS (SELECT * FROM #REPostToGL) BEGIN
+
+			SELECT TOP(1) @ReCurrDate = TxnDate FROM #REPostToGL
+			
+			EXEC [GL_POSTING_COMMON_SP] @ReCurrDate, @DayEndUserID, @PropertyID, 'XX', 'XX'
+
+			DELETE TOP(1) FROM #REPostToGL
+
+		END
+
+		BEGIN TRY DROP TABLE #REPostToGL END TRY
+		BEGIN CATCH END CATCH
+
+	END
+
+END
+
+GO
+

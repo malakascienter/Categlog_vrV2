@@ -1,0 +1,22 @@
+# Build output
+bin/
+obj/
+*.dacpac
+*.dbmdl
+*.jfm
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Generated deploy scripts (contain server-specific SQL)
+deploy-output/
+
+# Personal publish profiles (if someone needs a non-LocalDB server)
+*.mine.publish.xml
+
+# UI tool output
+dist/
+DbTool/bin/
+DbTool/obj/

@@ -1,0 +1,8 @@
+CREATE TABLE [dbo].[COSTMENUJ] (
+    [ITEMNAME] VARCHAR (50) NULL,
+    [EXPRICE]  MONEY        NULL
+);
+
+
+GO
+

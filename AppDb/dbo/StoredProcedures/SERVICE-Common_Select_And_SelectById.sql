@@ -1,0 +1,27 @@
+--EXEC [SERVICE-Common_Select_And_SelectById] 'ServiceItemDetails',1002
+CREATE PROCEDURE [dbo].[SERVICE-Common_Select_And_SelectById]
+(	
+  @TableName VARCHAR(100),
+  @ID VARCHAR(100) = '-999'
+)
+AS 
+
+BEGIN TRY
+	BEGIN TRANSACTION
+
+	DECLARE @Qry VARCHAR(MAX)
+
+	SET @Qry = 'SELECT * FROM '+ @TableName + '
+	WHERE ID = CASE WHEN '+@ID+' = -999 THEN ID ELSE '+@ID+' END' 
+	EXEC  (@Qry)
+
+	COMMIT TRAN 
+END TRY
+BEGIN CATCH
+        RETURN CAST(ERROR_NUMBER() AS VARCHAR(10)) + ' - ' + ERROR_MESSAGE() + ' - On Line ' + CAST(ERROR_LINE() AS VARCHAR(10))
+        IF @@TRANCOUNT > 0
+        ROLLBACK TRAN 
+END CATCH
+
+GO
+

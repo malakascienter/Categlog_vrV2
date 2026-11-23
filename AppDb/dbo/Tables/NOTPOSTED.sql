@@ -1,0 +1,7 @@
+CREATE TABLE [dbo].[NOTPOSTED] (
+    [DOCNO] VARCHAR (50) NULL
+);
+
+
+GO
+

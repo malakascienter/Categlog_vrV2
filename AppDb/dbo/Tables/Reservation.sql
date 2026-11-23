@@ -1,0 +1,41 @@
+CREATE TABLE [dbo].[Reservation] (
+    [ReservationNo]       INT             NOT NULL,
+    [ReservationDate]     SMALLDATETIME   CONSTRAINT [DF_Reservation_ReservationDate] DEFAULT (getdate()) NOT NULL,
+    [CustomerName]        VARCHAR (50)    CONSTRAINT [DF_Reservation_CustomerName] DEFAULT ('') NOT NULL,
+    [NoOfPacks]           INT             CONSTRAINT [DF_Reservation_NoOfPacks] DEFAULT ((0)) NOT NULL,
+    [AdvanceAmount]       NUMERIC (18, 4) CONSTRAINT [DF_Reservation_AdvanceAmount] DEFAULT ((0)) NOT NULL,
+    [Remark]              VARCHAR (200)   CONSTRAINT [DF_Reservation_Remark] DEFAULT ('') NOT NULL,
+    [OrderNo]             VARCHAR (10)    CONSTRAINT [DF_Reservation_OrderNo] DEFAULT ('') NOT NULL,
+    [IsCancel]            BIT             CONSTRAINT [DF_Reservation_IsCancel] DEFAULT ((0)) NOT NULL,
+    [IsComplete]          BIT             CONSTRAINT [DF_Reservation_IsComplete] DEFAULT ((0)) NOT NULL,
+    [CreateUser]          VARCHAR (20)    CONSTRAINT [DF_Reservation_CreateUser] DEFAULT ('') NOT NULL,
+    [CreateDate]          SMALLDATETIME   CONSTRAINT [DF_Reservation_CreateDate] DEFAULT (getdate()) NOT NULL,
+    [EditedUser]          VARCHAR (20)    CONSTRAINT [DF_Reservation_CreateUser1_1] DEFAULT ('') NOT NULL,
+    [EditedDate]          SMALLDATETIME   CONSTRAINT [DF_Reservation_CreateDate1_1] DEFAULT (getdate()) NOT NULL,
+    [CancelUser]          VARCHAR (20)    CONSTRAINT [DF_Reservation_CreateUser1] DEFAULT ('') NOT NULL,
+    [CancelDate]          SMALLDATETIME   CONSTRAINT [DF_Reservation_CreateDate1] DEFAULT (getdate()) NOT NULL,
+    [Outlet]              VARCHAR (50)    CONSTRAINT [DF_Reservation_Outlet] DEFAULT ('') NOT NULL,
+    [IsUpload]            BIT             CONSTRAINT [DF_Reservation_IsUpload] DEFAULT ((0)) NOT NULL,
+    [IsOnGoing]           BIT             CONSTRAINT [DF_Reservation_IsOnGoing] DEFAULT ((0)) NOT NULL,
+    [ContactNo]           VARCHAR (50)    CONSTRAINT [DF_Reservation_ContactNo] DEFAULT ('') NOT NULL,
+    [TableID]             INT             CONSTRAINT [DF_Reservation_TableID] DEFAULT ((0)) NOT NULL,
+    [NoOfAdult]           INT             CONSTRAINT [DF_Reservation_NoOfAdult] DEFAULT ((0)) NOT NULL,
+    [NoOfChild]           INT             CONSTRAINT [DF_Reservation_NoOfChild] DEFAULT ((0)) NOT NULL,
+    [NoOfInfant]          INT             CONSTRAINT [DF_Reservation_NoOfInfant] DEFAULT ((0)) NOT NULL,
+    [TimeSlotID]          INT             CONSTRAINT [DF_Reservation_TimeSlotID] DEFAULT ((0)) NOT NULL,
+    [PropertyId]          INT             CONSTRAINT [DF_Reservation_PropertyId] DEFAULT ((0)) NOT NULL,
+    [SalutationId]        INT             DEFAULT ((0)) NOT NULL,
+    [ArrivalTime]         TIME (7)        DEFAULT ('12:00:00.0000000') NOT NULL,
+    [TableCategoryID]     INT             DEFAULT ((0)) NOT NULL,
+    [GivenRate]           MONEY           DEFAULT ((0)) NOT NULL,
+    [Email]               VARCHAR (50)    CONSTRAINT [DF_Reservation_Email] DEFAULT ('') NULL,
+    [ReservationStatus]   VARCHAR (15)    NULL,
+    [ChannelType]         CHAR (1)        NULL,
+    [ReservationStatusID] INT             NULL,
+    [StartTime]           DATETIME        CONSTRAINT [DF_Reservation_StartTime] DEFAULT (getdate()) NOT NULL,
+    [ToTime]              DATETIME        CONSTRAINT [DF_Reservation_ToTime] DEFAULT (getdate()) NOT NULL
+);
+
+
+GO
+

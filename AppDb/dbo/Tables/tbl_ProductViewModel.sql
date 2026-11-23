@@ -1,0 +1,42 @@
+CREATE TABLE [dbo].[tbl_ProductViewModel] (
+    [Id]                     INT             NOT NULL,
+    [CompanyId]              INT             NOT NULL,
+    [LocationId]             INT             NOT NULL,
+    [StockItemCode]          NVARCHAR (MAX)  NULL,
+    [PLUCode]                NVARCHAR (MAX)  NULL,
+    [ReferanceCode]          NVARCHAR (MAX)  NULL,
+    [Barcode]                NVARCHAR (MAX)  NULL,
+    [Name]                   NVARCHAR (MAX)  NULL,
+    [NameOnInvoice]          NVARCHAR (MAX)  NULL,
+    [CategoryID]             INT             NOT NULL,
+    [SubCategoryID]          INT             NOT NULL,
+    [SupplierID]             INT             NOT NULL,
+    [TaxGroupID]             INT             NOT NULL,
+    [IsExpiryDateApplicable] BIT             NOT NULL,
+    [IPAddress]              NVARCHAR (MAX)  NULL,
+    [CreatedUserID]          INT             NOT NULL,
+    [LastModUserID]          INT             NOT NULL,
+    [CreatedDate]            DATETIME        NOT NULL,
+    [LastModDate]            DATETIME        NOT NULL,
+    [MasterUnitID]           INT             NOT NULL,
+    [PurchasingUnitID]       INT             NOT NULL,
+    [SIH]                    DECIMAL (18, 2) NOT NULL,
+    [MinimumQuantity]        DECIMAL (18, 2) NOT NULL,
+    [MaximumQuantity]        DECIMAL (18, 2) NOT NULL,
+    [ReOrderLevel]           DECIMAL (18, 2) NOT NULL,
+    [ReOrderQuantity]        DECIMAL (18, 2) NOT NULL,
+    [ReOrderPeriod]          DECIMAL (18, 2) NOT NULL,
+    [PurchaseAccountID]      NVARCHAR (MAX)  NULL,
+    [CostOfSalesAccountID]   NVARCHAR (MAX)  NULL,
+    [CostPrice]              DECIMAL (18, 2) NOT NULL,
+    [AveragePrice]           DECIMAL (18, 2) NOT NULL,
+    [SellingPrice]           DECIMAL (18, 2) NOT NULL,
+    [WholesalePrice]         DECIMAL (18, 2) NOT NULL,
+    [IsActive]               BIT             NOT NULL,
+    [QuantityInHand]         DECIMAL (18, 2) NOT NULL,
+    [StockItemId]            INT             NOT NULL
+);
+
+
+GO
+
